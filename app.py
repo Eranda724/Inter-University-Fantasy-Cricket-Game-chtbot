@@ -22,6 +22,14 @@ def chat():
         ]
         return jsonify({"response": "\n".join(response)})
     
+    if "batsman" in user_input.lower():
+        response = [
+            f"{i+1}. {p['Name']} - {p['University']} - {p['Category']} - ${p['Value']}"
+            for i, p in enumerate(players)
+            if p['Category'].lower() == "batsman" and p['Value'] is not None
+        ]
+        return jsonify({"response": "\n".join(response) if response else "No batsmen found."})
+
     if user_input.isdigit():
         index = int(user_input) - 1
         if 0 <= index < len(players):
